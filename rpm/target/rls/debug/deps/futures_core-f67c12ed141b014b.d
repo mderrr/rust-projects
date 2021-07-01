@@ -1,0 +1,11 @@
+/home/santiago/Repositories/rust-projects/rpm/target/rls/debug/deps/futures_core-f67c12ed141b014b.rmeta: /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/lib.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/future.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/stream.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/mod.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/poll.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/__internal/mod.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/__internal/atomic_waker.rs
+
+/home/santiago/Repositories/rust-projects/rpm/target/rls/debug/deps/futures_core-f67c12ed141b014b.d: /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/lib.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/future.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/stream.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/mod.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/poll.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/__internal/mod.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/__internal/atomic_waker.rs
+
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/lib.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/future.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/stream.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/mod.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/poll.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/__internal/mod.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.15/src/task/__internal/atomic_waker.rs:

@@ -1,0 +1,6 @@
+# Maintainer: Gordian Edenhofer <gordian.edenhofer@gmail.com>
+
+pkgname=zoom
+pkgver=5.7.0
+_build=25958.0621
+pkgrel=1

@@ -1,0 +1,13 @@
+/home/santiago/Repositories/rust-projects/rpm/target/rls/debug/deps/tracing-286deca6dc078549.rmeta: /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/lib.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/macros.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/dispatcher.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/field.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/instrument.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/level_filters.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/span.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/stdlib.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/subscriber.rs
+
+/home/santiago/Repositories/rust-projects/rpm/target/rls/debug/deps/tracing-286deca6dc078549.d: /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/lib.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/macros.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/dispatcher.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/field.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/instrument.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/level_filters.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/span.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/stdlib.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/subscriber.rs
+
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/lib.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/macros.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/dispatcher.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/field.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/instrument.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/level_filters.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/span.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/stdlib.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.26/src/subscriber.rs:

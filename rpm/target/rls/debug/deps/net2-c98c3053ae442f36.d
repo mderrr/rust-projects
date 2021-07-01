@@ -1,0 +1,13 @@
+/home/santiago/Repositories/rust-projects/rpm/target/rls/debug/deps/net2-c98c3053ae442f36.rmeta: /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/lib.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/tcp.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/udp.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/socket.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/ext.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/utils.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/sys/unix/mod.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/sys/unix/impls.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/unix.rs
+
+/home/santiago/Repositories/rust-projects/rpm/target/rls/debug/deps/net2-c98c3053ae442f36.d: /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/lib.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/tcp.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/udp.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/socket.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/ext.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/utils.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/sys/unix/mod.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/sys/unix/impls.rs /home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/unix.rs
+
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/lib.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/tcp.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/udp.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/socket.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/ext.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/utils.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/sys/unix/mod.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/sys/unix/impls.rs:
+/home/santiago/.cargo/registry/src/github.com-1ecc6299db9ec823/net2-0.2.37/src/unix.rs:
