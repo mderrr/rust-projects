@@ -13,7 +13,7 @@ const OUTDATED_FILE_NAME: &str = "out-dated";
 
 
 const PROGRAM_NAME: &str        = "Rust Package Manager";
-const PROGRAM_VERSION: &str     = "0.3.0";
+const PROGRAM_VERSION: &str     = "0.4.0";
 const PROGRAM_DESCRIPTION: &str = "an Arch User Repository package manager written in Rust";
 
 const STRING_USAGE: &str   = "Usage:";
@@ -112,15 +112,15 @@ fn make_green( string: &str ) -> ansi_term::ANSIString { Green.bold().paint(stri
 fn make_blue( string: &str ) -> ansi_term::ANSIString { Blue.bold().paint(string) }
 fn make_red( string: &str ) -> ansi_term::ANSIString { Red.bold().paint(string) }
 
-const PROGRAM_OPTIONS: [ (&str, &str, &str); 9 ] = [ ( "-V, --version", "Display program version information", "\t" )
-                                                   , ( "-h, --help", "Show this help message", "\t\t" ) 
-                                                   , ( "-q, --quiet", "Enable quiet mode (print only the necessary info)", "\t\t" )
-                                                   , ( "-E, --explain", "Explain an error code", "\t" )
-                                                   , ( "-Q, --query", "Display a query of installed packages", "\t\t" )
-                                                   , ( "-S, --sync", "Install an AUR package", "\t\t" )
-                                                   , ( "-Sy, --refresh", "Refresh AUR database", "\t" )
-                                                   , ( "-R, --remove", "Removed an installed package", "\t" )
-                                                   , ( "-M, --manage", "Show the update manager prompt", "\t" ) ];
+const PROGRAM_OPTIONS: [ (&str, &str); 9 ] = [ ( "-V,  --version", "Display program version information")
+                                                   , ( "-h,  --help   ", "Show this help message" ) 
+                                                   , ( "-q,  --quiet  ", "Enable quiet mode (print only the necessary info)" )
+                                                   , ( "-E,  --explain", "Explain an error code" )
+                                                   , ( "-Q,  --query  ", "Display a query of installed packages" )
+                                                   , ( "-S,  --sync   ", "Install an AUR package" )
+                                                   , ( "-Sy, --refresh", "Refresh AUR database" )
+                                                   , ( "-R,  --remove ", "Removed an installed package" )
+                                                   , ( "-M,  --manage ", "Show the update manager prompt" ) ];
 
 fn print_help_message() {
     println!( "\n {} {} {}, {}\n {} {} {} {}.. {}\n\n {} {}"
@@ -129,7 +129,7 @@ fn print_help_message() {
             , make_red(CHAR_ARROW), make_red(STRING_OPTIONS) );
 
     for option in PROGRAM_OPTIONS.iter() {
-        println!( "    {}{}{}", make_bold(option.0), option.2, option.1 );
+        println!( "    {}\t{}", make_bold(option.0), option.1 );
     }
 }
 
@@ -679,6 +679,55 @@ fn update_outdated_packages( be_quiet: bool ) {
     println!("\n {} {}", make_green(CHAR_ARROW), make_green("Done Installing Updates"));
 }
 
+fn show_update_manager() {
+    let outdated_file_path = &[ &get_home_directory(), CONFIG_DIRECTORY, OUTDATED_FILE_NAME ].concat();
+
+    let termsize::Size {cols, ..} = termsize::get().unwrap();
+    let spacer_size = cols;
+
+    let mut cat_command = Command::new("cat");
+    cat_command.arg(outdated_file_path);
+
+    let cat_output_string: String = assert_command_success( &mut cat_command, CODE_INFORMATION_CAT );
+    let outdated_packages: Vec<&str> = cat_output_string.split("\n").collect();
+
+
+
+    let manager_title_string: String = format!("{:^1$}", PROGRAM_NAME, spacer_size as usize);
+    
+
+    println!( "{}", make_green(&manager_title_string) );
+
+    if outdated_packages[0] == "" {
+        println!( "{}", make_blue( &format!( "{:^1$}", "No Updates available", spacer_size as usize ) ) );
+        return
+
+    } else {
+        let available_updates_string: String;
+
+        if outdated_packages.len() == 1 {
+            available_updates_string = format!( "{:^1$}", "1 Update available", spacer_size as usize );
+        } else {
+            available_updates_string = format!( "{:^1$}", &format!( "{} Updates available", outdated_packages.len() ), spacer_size as usize );
+        }
+    
+        println!( "{}\n", make_yellow(&available_updates_string) );
+    } 
+    
+    for package_info in outdated_packages {
+        let package_info_vector: Vec<&str> = package_info.split(" ").collect();
+
+        println!(" {} {} {} to {}", make_red(CHAR_ARROW), make_red(package_info_vector[0]), package_info_vector[1], make_bold(package_info_vector[2]) );
+    }
+
+    let user_input: &str = &get_user_input( &format!( "\n {} or {} {} ", make_green("Install"), make_red("Quit"), make_red(CHAR_ARROW) ) );
+    match user_input {
+        "Quit" | "quit" | "N" | "n" | "No" | "no" | "Q" | "q" | "" => (),
+        "Install" | "install" | "Y" | "y" | "Yes" | "yes" | "I" | "i" => update_outdated_packages(true),
+        _ => exit_with_error_code(0x41),
+    }
+}
+
 fn read_environmental_arguments( arguments: &mut Vec<String>, quiet_mode_enabled: &mut bool ) {
     if arguments.len() > 1 {
         let first_argument: &str = &arguments[1];
@@ -689,6 +738,7 @@ fn read_environmental_arguments( arguments: &mut Vec<String>, quiet_mode_enabled
                 "-V" | "--version" => println!( " {} {} version {}", make_green(CHAR_ARROW), make_green(PROGRAM_NAME), make_bold(PROGRAM_VERSION) ),
                 "-Q" | "--query"   => show_installed_packages(*quiet_mode_enabled, arguments),
                 "-Qu"              => show_outdated_packages(*quiet_mode_enabled, arguments),
+                "-M" | "--manage"  => show_update_manager(),
                 "-R" | "--remove"  => remove_package( &arguments[2], *quiet_mode_enabled ),       
                 "-S" | "--sync"    => sync_package( &arguments[2], *quiet_mode_enabled ),
                 "-Su"              => update_outdated_packages(*quiet_mode_enabled),
