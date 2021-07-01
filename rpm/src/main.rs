@@ -13,7 +13,7 @@ const OUTDATED_FILE_NAME: &str = "out-dated";
 
 
 const PROGRAM_NAME: &str        = "Rust Package Manager";
-const PROGRAM_VERSION: &str     = "0.2.0";
+const PROGRAM_VERSION: &str     = "0.3.0";
 const PROGRAM_DESCRIPTION: &str = "an Arch User Repository package manager written in Rust";
 
 const STRING_USAGE: &str   = "Usage:";
@@ -74,6 +74,12 @@ const ERROR_INFO_41: [&'static str; 6] = [ "41"
                                          , "User inputted an invalid option"
                                          , "Check that you wrote the allowed option for the prompt" ];
 
+const ERROR_INFO_50: [&'static str; 6] = [ "50"
+                                         , "Package Deletion Error"
+                                         , "Package Deletion Error"
+                                         , "This error is raised when rpm tries to remove an installed package but it cannot complete the deletion of the package's info file located in ~/.config/rpm/package_info"
+                                         , "rpm can't delete a package's info file"
+                                         , "Check that the package info file exists" ];
 
 const CODE_INFORMATION_GREP_PKG_READ: ( i32, [i32; 2] ) = ( 00, [0, 0] );
 const CODE_INFORMATION_GIT_CLONE: ( i32, [i32; 2] )     = ( 01, [0, 128] );
@@ -82,6 +88,7 @@ const CODE_INFORMATION_MKDIR: ( i32, [i32; 2] )         = ( 03, [0, 0] );
 const CODE_INFORMATION_MAKEPKG: ( i32, [i32; 2] )       = ( 04, [0, 0] );
 const CODE_INFORMATION_LS: ( i32, [i32; 2] )            = ( 05, [0, 0] );
 const CODE_INFORMATION_CAT: ( i32, [i32; 2] )           = ( 06, [0, 0] );
+const CODE_INFORMATION_PACMAN_RNS: ( i32, [i32; 2] )    = ( 07, [0, 0] );
 
 const DIRECTORY_PATH_TMP: &'static str     = "/tmp/";
 const DIRECTORY_PATH_RPM_TMP: &'static str = "/tmp/rpm/";
@@ -105,9 +112,10 @@ fn make_green( string: &str ) -> ansi_term::ANSIString { Green.bold().paint(stri
 fn make_blue( string: &str ) -> ansi_term::ANSIString { Blue.bold().paint(string) }
 fn make_red( string: &str ) -> ansi_term::ANSIString { Red.bold().paint(string) }
 
-const PROGRAM_OPTIONS: [ (&str, &str, &str); 8 ] = [ ( "-V, --version", "Display program version information", "\t" )
+const PROGRAM_OPTIONS: [ (&str, &str, &str); 9 ] = [ ( "-V, --version", "Display program version information", "\t" )
                                                    , ( "-h, --help", "Show this help message", "\t\t" ) 
                                                    , ( "-q, --quiet", "Enable quiet mode (print only the necessary info)", "\t\t" )
+                                                   , ( "-E, --explain", "Explain an error code", "\t" )
                                                    , ( "-Q, --query", "Display a query of installed packages", "\t\t" )
                                                    , ( "-S, --sync", "Install an AUR package", "\t\t" )
                                                    , ( "-Sy, --refresh", "Refresh AUR database", "\t" )
@@ -148,6 +156,7 @@ fn match_error_codes( code: i32 ) {
         0x30 => explain(ERROR_INFO_30),
         0x40 => explain(ERROR_INFO_40),
         0x41 => explain(ERROR_INFO_41),
+        0x50 => explain(ERROR_INFO_50),
         0xFF => explain(ERROR_INFO_FF),
         _    => println!( " {} Error code {} does {} exist, did you mistype?", make_red("❯"), make_red( &format!("'{}'", code) ), make_bold("not") ),
     }
@@ -173,15 +182,14 @@ fn assert_command_success( command: &mut Command, command_code_information: ( i3
     let command_exit_code = command_output.status.code().unwrap();
     let command_output_string = get_string_from_stdout(command_output.stdout);
 
-    //println!("out code {}", command_exit_code);
-    //println!("out code 2 {}", get_string_from_stdout(command_output.stderr));
-    //println!("out string {}", command_output_string);
+    //print!("command exit code: {}, ", command_exit_code);
+    //print!("command stderr: {}, ", get_string_from_stdout(command_output.stderr));
+    //println!("command output: {}", command_output_string);
 
     if ! acceptable_exit_codes.contains( &command_exit_code ) {
         exit_with_error_code( get_error_code_from_exit_code(command_exit_code, command_id) );
     }
 
-    
     command_output_string
 }
 
@@ -368,6 +376,37 @@ fn sync_package( package_name: &str, be_quiet: bool ) {
 
     println!(" {} {} finishing up {}'s installation", make_green(CHAR_ARROW), make_green("Done"), make_bold(package_name));
     println!("\n {} {}", make_green(CHAR_ARROW), make_green("Package Installation Complete"));
+}
+
+fn remove_package( package_name: &str, be_quiet: bool ) {
+    let package_info_directory: &str = &[ &get_home_directory(), DIRECTORY_NAME_CONFIG, DIRECTORY_NAME_RPM, DIRECTORY_NAME_PACKAGE_INFO ].concat();
+    let package_info_file_path: &str      = &[ package_info_directory, package_name ].concat();
+
+    let mut ls_command = Command::new("ls");
+    ls_command.arg(package_info_directory);
+
+    let ls_output_string = assert_command_success( &mut ls_command, CODE_INFORMATION_LS );
+    let ls_output_vector: Vec<&str> = ls_output_string.split("\n").collect();
+
+    if ! ls_output_vector.contains(&package_name) {
+        println!( " {} {} the package {} is not installed", make_red(CHAR_ARROW), make_red("Error"), make_bold(package_name) );
+        return
+    }
+
+    match fs::remove_file(package_info_file_path) {
+        Ok(_) => (),
+        Err(_) => exit_with_error_code(0x50),
+    }
+
+    let mut pacman_rns_command = Command::new("sudo");
+    pacman_rns_command.args( &["pacman", "--noconfirm", "-Rns", package_name] );
+    pacman_rns_command.stdout( send_io_to(be_quiet) );
+
+    assert_command_success( &mut pacman_rns_command, CODE_INFORMATION_PACMAN_RNS );
+
+    if ! be_quiet {
+        println!( "\n {} {} {}", make_green(CHAR_ARROW), make_green(package_name), make_green("was uninstalled successfully") );
+    }
 }
 
 fn get_number_of_tabs( package_name: &str ) -> String {
@@ -649,7 +688,8 @@ fn read_environmental_arguments( arguments: &mut Vec<String>, quiet_mode_enabled
                 "-h" | "--help"    => print_help_message(),
                 "-V" | "--version" => println!( " {} {} version {}", make_green(CHAR_ARROW), make_green(PROGRAM_NAME), make_bold(PROGRAM_VERSION) ),
                 "-Q" | "--query"   => show_installed_packages(*quiet_mode_enabled, arguments),
-                "-Qu"              => show_outdated_packages(*quiet_mode_enabled, arguments),              
+                "-Qu"              => show_outdated_packages(*quiet_mode_enabled, arguments),
+                "-R" | "--remove"  => remove_package( &arguments[2], *quiet_mode_enabled ),       
                 "-S" | "--sync"    => sync_package( &arguments[2], *quiet_mode_enabled ),
                 "-Su"              => update_outdated_packages(*quiet_mode_enabled),
                 "-Sy"              => refresh_packages(*quiet_mode_enabled),
