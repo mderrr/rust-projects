@@ -13,10 +13,8 @@ const OUTDATED_FILE_NAME: &str = "out-dated";
 
 
 const PROGRAM_NAME: &str        = "Rust Package Manager";
-const PROGRAM_VERSION: &str     = "0.1";
+const PROGRAM_VERSION: &str     = "0.2.0";
 const PROGRAM_DESCRIPTION: &str = "an Arch User Repository package manager written in Rust";
-const PROGRAM_USAGE: &str       = "rpm <options>... [AUR Package Name]";
-const PROGRAM_OPTIONS: &str     = "  -V, --version\t\t\tDisplay program version information\n  -h, --help\t\t\tShow this help message\n  -q, --quiet\t\t\tEnable quiet mode (print only the necessary info)\n  -Q, --query\t\t\tDisplay a query of installed packages\n  -S, --sync-package\t\tInstall an AUR package\n  -M, --manage-updates\t\tShow the update manager prompt";
 
 const STRING_USAGE: &str   = "Usage:";
 const STRING_OPTIONS: &str = "Options:";
@@ -107,8 +105,24 @@ fn make_green( string: &str ) -> ansi_term::ANSIString { Green.bold().paint(stri
 fn make_blue( string: &str ) -> ansi_term::ANSIString { Blue.bold().paint(string) }
 fn make_red( string: &str ) -> ansi_term::ANSIString { Red.bold().paint(string) }
 
+const PROGRAM_OPTIONS: [ (&str, &str, &str); 8 ] = [ ( "-V, --version", "Display program version information", "\t" )
+                                                   , ( "-h, --help", "Show this help message", "\t\t" ) 
+                                                   , ( "-q, --quiet", "Enable quiet mode (print only the necessary info)", "\t\t" )
+                                                   , ( "-Q, --query", "Display a query of installed packages", "\t\t" )
+                                                   , ( "-S, --sync", "Install an AUR package", "\t\t" )
+                                                   , ( "-Sy, --refresh", "Refresh AUR database", "\t" )
+                                                   , ( "-R, --remove", "Removed an installed package", "\t" )
+                                                   , ( "-M, --manage", "Show the update manager prompt", "\t" ) ];
+
 fn print_help_message() {
-    println!( "\n{} {}, {}\n{} {}\n\n{}\n{}", make_red(PROGRAM_NAME), PROGRAM_VERSION, PROGRAM_DESCRIPTION, make_bold(STRING_USAGE), PROGRAM_USAGE, make_bold(STRING_OPTIONS), PROGRAM_OPTIONS );
+    println!( "\n {} {} {}, {}\n {} {} {} {}.. {}\n\n {} {}"
+            , make_green(CHAR_ARROW), make_green(PROGRAM_NAME), make_bold(PROGRAM_VERSION), PROGRAM_DESCRIPTION
+            , make_yellow(CHAR_ARROW), make_yellow(STRING_USAGE), make_bold("rpm"), make_red("[options]"), make_blue("[AUR Link]")
+            , make_red(CHAR_ARROW), make_red(STRING_OPTIONS) );
+
+    for option in PROGRAM_OPTIONS.iter() {
+        println!( "    {}{}{}", make_bold(option.0), option.2, option.1 );
+    }
 }
 
 fn explain( error_info: [&'static str; 6] ) {
@@ -633,7 +647,7 @@ fn read_environmental_arguments( arguments: &mut Vec<String>, quiet_mode_enabled
         if first_argument.starts_with("-") {
             match first_argument {
                 "-h" | "--help"    => print_help_message(),
-                "-V" | "--version" => println!( "{}", make_bold( &[PROGRAM_NAME, "version", PROGRAM_VERSION].concat() ) ),
+                "-V" | "--version" => println!( " {} {} version {}", make_green(CHAR_ARROW), make_green(PROGRAM_NAME), make_bold(PROGRAM_VERSION) ),
                 "-Q" | "--query"   => show_installed_packages(*quiet_mode_enabled, arguments),
                 "-Qu"              => show_outdated_packages(*quiet_mode_enabled, arguments),              
                 "-S" | "--sync"    => sync_package( &arguments[2], *quiet_mode_enabled ),
